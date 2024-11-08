@@ -1,0 +1,137 @@
+[gd_scene load_steps=20 format=3 uid="uid://8a86hc5mfxuw"]
+
+[ext_resource type="Script" path="res://scripts/fire_spirit.gd" id="1_ccv8k"]
+[ext_resource type="Texture2D" uid="uid://b23pdagmi1ng8" path="res://assets/Enemies/Fire_Spirit/Walk.png" id="1_gpn1m"]
+[ext_resource type="Texture2D" uid="uid://gir1dwee8x0v" path="res://assets/Enemies/Fire_Spirit/Dead.png" id="2_7b0nw"]
+[ext_resource type="PackedScene" uid="uid://dpahtypm0s8y" path="res://scenes/killzone.tscn" id="2_bryy0"]
+[ext_resource type="PackedScene" uid="uid://c3mxjbl2x6w5a" path="res://scenes/enemy.tscn" id="5_28u6i"]
+
+[sub_resource type="AtlasTexture" id="AtlasTexture_kac3u"]
+atlas = ExtResource("2_7b0nw")
+region = Rect2(0, 0, 128, 128)
+
+[sub_resource type="AtlasTexture" id="AtlasTexture_ush1n"]
+atlas = ExtResource("2_7b0nw")
+region = Rect2(128, 0, 128, 128)
+
+[sub_resource type="AtlasTexture" id="AtlasTexture_8454b"]
+atlas = ExtResource("2_7b0nw")
+region = Rect2(256, 0, 128, 128)
+
+[sub_resource type="AtlasTexture" id="AtlasTexture_neilk"]
+atlas = ExtResource("2_7b0nw")
+region = Rect2(384, 0, 128, 128)
+
+[sub_resource type="AtlasTexture" id="AtlasTexture_tbt0o"]
+atlas = ExtResource("2_7b0nw")
+region = Rect2(512, 0, 128, 128)
+
+[sub_resource type="AtlasTexture" id="AtlasTexture_s06h3"]
+atlas = ExtResource("1_gpn1m")
+region = Rect2(0, 0, 128, 128)
+
+[sub_resource type="AtlasTexture" id="AtlasTexture_8gr1y"]
+atlas = ExtResource("1_gpn1m")
+region = Rect2(128, 0, 128, 128)
+
+[sub_resource type="AtlasTexture" id="AtlasTexture_u5owr"]
+atlas = ExtResource("1_gpn1m")
+region = Rect2(256, 0, 128, 128)
+
+[sub_resource type="AtlasTexture" id="AtlasTexture_c1g5r"]
+atlas = ExtResource("1_gpn1m")
+region = Rect2(384, 0, 128, 128)
+
+[sub_resource type="AtlasTexture" id="AtlasTexture_f57bn"]
+atlas = ExtResource("1_gpn1m")
+region = Rect2(512, 0, 128, 128)
+
+[sub_resource type="AtlasTexture" id="AtlasTexture_btusb"]
+atlas = ExtResource("1_gpn1m")
+region = Rect2(640, 0, 128, 128)
+
+[sub_resource type="AtlasTexture" id="AtlasTexture_clkam"]
+atlas = ExtResource("1_gpn1m")
+region = Rect2(768, 0, 128, 128)
+
+[sub_resource type="SpriteFrames" id="SpriteFrames_tpibv"]
+animations = [{
+"frames": [{
+"duration": 1.0,
+"texture": SubResource("AtlasTexture_kac3u")
+}, {
+"duration": 1.0,
+"texture": SubResource("AtlasTexture_ush1n")
+}, {
+"duration": 1.0,
+"texture": SubResource("AtlasTexture_8454b")
+}, {
+"duration": 1.0,
+"texture": SubResource("AtlasTexture_neilk")
+}, {
+"duration": 1.0,
+"texture": SubResource("AtlasTexture_tbt0o")
+}],
+"loop": false,
+"name": &"die",
+"speed": 10.0
+}, {
+"frames": [{
+"duration": 1.0,
+"texture": SubResource("AtlasTexture_s06h3")
+}, {
+"duration": 1.0,
+"texture": SubResource("AtlasTexture_8gr1y")
+}, {
+"duration": 1.0,
+"texture": SubResource("AtlasTexture_u5owr")
+}, {
+"duration": 1.0,
+"texture": SubResource("AtlasTexture_c1g5r")
+}, {
+"duration": 1.0,
+"texture": SubResource("AtlasTexture_f57bn")
+}, {
+"duration": 1.0,
+"texture": SubResource("AtlasTexture_btusb")
+}, {
+"duration": 1.0,
+"texture": SubResource("AtlasTexture_clkam")
+}],
+"loop": true,
+"name": &"walk",
+"speed": 10.0
+}]
+
+[sub_resource type="CircleShape2D" id="CircleShape2D_kmlcg"]
+
+[node name="fire_spirit" type="Node2D"]
+script = ExtResource("1_ccv8k")
+
+[node name="AnimatedSprite2D" type="AnimatedSprite2D" parent="."]
+position = Vector2(1, 1)
+sprite_frames = SubResource("SpriteFrames_tpibv")
+animation = &"walk"
+autoplay = "walk"
+
+[node name="fire_spirit_killzone" parent="." instance=ExtResource("2_bryy0")]
+collision_layer = 2
+collision_mask = 5
+
+[node name="fire_spirit_killzone_shape" type="CollisionShape2D" parent="fire_spirit_killzone"]
+position = Vector2(2, 4)
+shape = SubResource("CircleShape2D_kmlcg")
+debug_color = Color(0.984469, 0, 0.343263, 0.42)
+
+[node name="ray_cast_right" type="RayCast2D" parent="."]
+position = Vector2(2, 3)
+target_position = Vector2(17, 0)
+collision_mask = 4
+
+[node name="ray_cast_left" type="RayCast2D" parent="."]
+position = Vector2(2, 3)
+target_position = Vector2(-15, 0)
+collision_mask = 4
+
+[node name="enemy" parent="." instance=ExtResource("5_28u6i")]
+position = Vector2(2, 3)

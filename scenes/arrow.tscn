@@ -1,0 +1,30 @@
+[gd_scene load_steps=5 format=3 uid="uid://eea2s2ml1nat"]
+
+[ext_resource type="Script" path="res://scripts/arrow.gd" id="1_g25xd"]
+[ext_resource type="Texture2D" uid="uid://b1nuaom6eirxl" path="res://assets/Player/Archer/Arrow.png" id="1_pj4yb"]
+
+[sub_resource type="CircleShape2D" id="CircleShape2D_20l5v"]
+radius = 3.16228
+
+[sub_resource type="CircleShape2D" id="CircleShape2D_3npk0"]
+radius = 3.16228
+
+[node name="arrow" type="RigidBody2D"]
+script = ExtResource("1_g25xd")
+
+[node name="arrow" type="Area2D" parent="."]
+collision_layer = 8
+collision_mask = 6
+
+[node name="arrow_collider" type="CollisionShape2D" parent="arrow"]
+position = Vector2(19, 0)
+shape = SubResource("CircleShape2D_20l5v")
+
+[node name="CollisionShape2D" type="CollisionShape2D" parent="."]
+position = Vector2(19, 0)
+shape = SubResource("CircleShape2D_3npk0")
+
+[node name="Sprite2D" type="Sprite2D" parent="."]
+texture = ExtResource("1_pj4yb")
+
+[connection signal="area_shape_entered" from="arrow" to="." method="_on_arrow_area_shape_entered"]
